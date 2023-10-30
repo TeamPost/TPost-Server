@@ -1,0 +1,53 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/[database?]?useSSL=true&useUnicode=true&serverTimezone=Asia/Seoul
+    username: [username]
+    password: [password]
+
+  redis:
+    host: localhost
+    port: 6379
+    password: 1234
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+        show_sql: true
+        format_sql:
+        dialect: org.hibernate.dialect.H2Dialect
+    show-sql: true
+
+logging:
+  pattern:
+    console: "%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] %logger[%method:%line] - %msg%n"
+    file: "%-4relative [%thread] %-5level %logger{35} - %msg%n"
+  logback:
+      rollingpolicy:
+        file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}_%i.zip"
+        max-history: 7
+        max-file-size: 5KB
+        total-size-cap: 1MB
+  file:
+    name: logs
+  level:
+    web: debug
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+
+jwt:
+  secret: [secret-key]
+  access:
+    subject: atk
+    expiration: 1800000 # 30minutes
+  refresh:
+    subject: rtk
+    expiration: 86400000 # 1days
